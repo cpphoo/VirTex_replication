@@ -83,7 +83,7 @@ def main(args):
 
     trainer.fit(model, 
                 train_dataloaders=trainloader, 
-                val_dataloaders=valloader)
+                val_dataloaders=valloader, ckpt_path=args.resume_from)
 
 
 if __name__ == "__main__":
@@ -97,6 +97,8 @@ if __name__ == "__main__":
                         help="name of the wandb run (for tracking purposes)")
     parser.add_argument("--tokenizer", type=str, default="data/tokenizer/coco_vocab_2017.model", 
                         help="Path to the tokenizer model")
+    parser.add_argument("--resume_from", type=str, default=None,
+                        help="Path to to resume from")
     
 
     # model hyperparameters
@@ -124,7 +126,7 @@ if __name__ == "__main__":
     # miscellaneous
     parser.add_argument('--checkpoint_freq', type=int, default=1000, help='frequency of saving checkpoints')
     parser.add_argument('--val_check_interval', type=int, default=1000, help='frequency of validation')
-    parser.add_argument("--seed", type=int, default=1, help="random seed")
+    parser.add_argument("--seed", type=int, default=0, help="random seed")
 
     args = parser.parse_args()
     main(args)
